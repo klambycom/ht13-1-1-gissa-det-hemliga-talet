@@ -8,13 +8,15 @@ namespace NumberGuessingGame.Models
     public class SecretNumber
     {
         private int? _number;
-        private int MaxNumberOfGuesses;
+        public const int MaxNumberOfGuesses = 7;
+        private GuessedNumber _lastGuessedNumber;
+        private List<GuessedNumber> _guessedNumbers;
 
         public bool CanMakeGuess
         {
             get
             {
-                throw new NotImplementedException();
+                return Count < MaxNumberOfGuesses && LastGuessedNumber.Outcome != Outcome.Right;
             }
         }
 
@@ -22,7 +24,7 @@ namespace NumberGuessingGame.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return _guessedNumbers.Count;
             }
         }
 
@@ -30,7 +32,7 @@ namespace NumberGuessingGame.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return _guessedNumbers.AsReadOnly();
             }
         }
 
@@ -38,25 +40,83 @@ namespace NumberGuessingGame.Models
         {
             get
             {
-                throw new NotImplementedException();
+                return _lastGuessedNumber;
             }
         }
 
-        public int? Number { get; set; }
+        public int? Number
+        {
+            get
+            {
+                if (CanMakeGuess)
+                {
+                    return null;
+                }
+                return _number;
+            }
+
+            private set
+            {
+                _number = value;
+            }
+        }
 
         public SecretNumber()
         {
-            throw new NotImplementedException();
+            _guessedNumbers = new List<GuessedNumber>(MaxNumberOfGuesses);
+            Initialize();
         }
 
         public void Initialize()
         {
-            throw new NotImplementedException();
+            _guessedNumbers.Clear();
+
+            var rnd = new Random();
+            Number = rnd.Next(1, 100);
+
+            _lastGuessedNumber.Number = null;
+            _lastGuessedNumber.Outcome = Outcome.Indefinite;
         }
 
         public Outcome MakeGuess(int guess)
         {
-            throw new NotImplementedException();
+            if (guess < 1 || guess > 100)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            if (!CanMakeGuess)
+            {
+                return Outcome.NoMoreGuesses;
+            }
+
+            var guessedNumber = new GuessedNumber();
+            guessedNumber.Number = guess;
+
+            if (GuessedNumbers.Contains(guessedNumber))
+            {
+                guessedNumber.Outcome = Outcome.OldGuess;
+                _lastGuessedNumber = guessedNumber;
+                return Outcome.OldGuess;
+            }
+
+            if (guess > _number)
+            {
+                guessedNumber.Outcome = Outcome.High;
+            }
+            else if (guess < _number)
+            {
+                guessedNumber.Outcome = Outcome.Low;
+            }
+            else if (guess == _number)
+            {
+                guessedNumber.Outcome = Outcome.Right;
+            }
+
+            _guessedNumbers.Add(guessedNumber);
+            _lastGuessedNumber = guessedNumber;
+
+            return guessedNumber.Outcome;
         }
     }
 }

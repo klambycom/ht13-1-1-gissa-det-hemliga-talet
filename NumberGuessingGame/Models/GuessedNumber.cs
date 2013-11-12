@@ -5,8 +5,14 @@ using System.Web;
 
 namespace NumberGuessingGame.Models
 {
-    public struct GuessedNumber
+    public struct GuessedNumber : IEquatable<GuessedNumber>
     {
         public int? Number;
+        public Outcome Outcome;
+
+        public bool Equals(GuessedNumber other)
+        {
+            return this.Number == other.Number;
+        }
     }
 }
