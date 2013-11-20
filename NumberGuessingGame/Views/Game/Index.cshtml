@@ -1,0 +1,30 @@
+﻿@using NumberGuessingGame.Models
+@model NumberGuessingGame.ViewModels.Game
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@Model.SecretNumber.Count gissningen</h2>
+
+@Html.Partial("_GuessForm")
+
+@if (Model.SecretNumber.Count > 0)
+{
+    <p>
+        @switch (Model.SecretNumber.LastGuessedNumber.Outcome)
+        {
+            case Outcome.Low:
+                @:@Model.SecretNumber.LastGuessedNumber.Number är för lågt.
+                break;
+            case Outcome.High:
+                @:@Model.SecretNumber.LastGuessedNumber.Number är för högt.
+                break;
+            case Outcome.OldGuess:
+                @:Du har redan gissat på @Model.SecretNumber.LastGuessedNumber.Number!
+                break;
+            default:
+                break;
+        }
+    </p>
+}
