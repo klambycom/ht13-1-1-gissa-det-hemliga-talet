@@ -10,20 +10,18 @@ namespace NumberGuessingGame.Controllers
 {
     public class GameController : Controller
     {
-        private Game game;
+        private Game game = new Game();
 
-        public GameController()
+        private SecretNumber GetSecretNumber()
         {
-            game = new Game();
+            var sessionName = "SecrectNumberSession";
 
-            try
+            if (Session[sessionName] == null)
             {
-                game.SecretNumber = Session["SecretNumber"] as SecretNumber;
+                Session[sessionName] = new SecretNumber();
             }
-            catch (Exception)
-            {
-                game.SecretNumber = new SecretNumber();
-            }
+
+            return (SecretNumber)Session[sessionName];
         }
 
         //
@@ -31,18 +29,20 @@ namespace NumberGuessingGame.Controllers
 
         public ActionResult Index()
         {
+            game.SecretNumber = GetSecretNumber();
             return View(game);
         }
 
         [HttpPost]
-        public ActionResult Index(/*[Bind(Include="Guess")]*/Game guess)
+        [ValidateAntiForgeryToken]
+        public ActionResult Index([Bind(Include="Guess")]Game guessedNumber)
         {
-            var req = Request["Guess"];
-            //if (ModelState.IsValid)
-            //{
-                game.SecretNumber.MakeGuess(guess.Guess);
+            if (ModelState.IsValid)
+            {
+                game.SecretNumber = GetSecretNumber();
+                game.SecretNumber.MakeGuess(guessedNumber.Guess);
                 Session["SecretNumber"] = game.SecretNumber;
-            //}
+            }
 
             return View(game);
         }
