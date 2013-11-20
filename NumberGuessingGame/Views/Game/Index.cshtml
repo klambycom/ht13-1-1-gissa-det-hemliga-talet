@@ -1,11 +1,17 @@
-﻿@using NumberGuessingGame.Models
-@model NumberGuessingGame.ViewModels.Game
+﻿@model NumberGuessingGame.ViewModels.Game
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>@Model.SecretNumber.Count gissningen</h2>
+@if (Model.SecretNumber.Count > 0)
+{
+    <h2>@Html.NumberToSwedish(Model.SecretNumber.Count) gissningen</h2>
+}
+else
+{
+    <h2>Gissa på det hemliga talet</h2>
+}
 
 @Html.Partial("_GuessForm")
 
@@ -28,3 +34,10 @@
         }
     </p>
 }
+
+<ul>
+@foreach (var guess in Model.SecretNumber.GuessedNumbers)
+{
+    <li>@Html.GuessToText(guess)</li>
+}
+</ul>

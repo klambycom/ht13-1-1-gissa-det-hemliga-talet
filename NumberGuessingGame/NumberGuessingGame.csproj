@@ -130,6 +130,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\GameTranslationHelper.cs" />
     <Compile Include="Models\GuessedNumber.cs" />
     <Compile Include="Models\Outcome.cs" />
     <Compile Include="Models\SecretNumber.cs" />
