@@ -1,61 +1,92 @@
 ﻿body {
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    color: #232323;
-    background-color: #fff;
-}
+  font-size: 0.85em;
+  font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+  color: #232323;
+  background-color: white; }
 
 header, footer, nav, section {
-    display: block;
-}
+  display: block; }
 
-
-/* Styles for basic forms
------------------------------------------------------------*/
 fieldset {
-    border: 1px solid #ddd;
-    padding: 0 1.4em 1.4em 1.4em;
-    margin: 0 0 1.5em 0;
-}
+  border: 1px solid #dddddd;
+  padding: 0 1.4em 1.4em 1.4em;
+  margin: 0 0 1.5em 0; }
 
 legend {
-    font-size: 1.2em;
-    font-weight: bold;
-}
+  font-size: 1.2em;
+  font-weight: bold; }
 
 textarea {
-    min-height: 75px;
-}
+  min-height: 75px; }
 
 .editor-label {
-    margin: 1em 0 0 0;
-}
+  margin: 1em 0 0 0; }
 
 .editor-field {
-    margin: 0.5em 0 0 0;
-}
+  margin: 0.5em 0 0 0; }
 
-
-/* Styles for validation helpers
------------------------------------------------------------*/
 .field-validation-error {
-    color: #f00;
-}
+  color: red; }
 
 .field-validation-valid {
-    display: none;
-}
+  display: none; }
 
 .input-validation-error {
-    border: 1px solid #f00;
-    background-color: #fee;
-}
+  border: 1px solid red;
+  background-color: #ffeeee; }
 
 .validation-summary-errors {
-    font-weight: bold;
-    color: #f00;
-}
+  font-weight: bold;
+  color: red; }
 
 .validation-summary-valid {
-    display: none;
-}
+  display: none; }
+
+body {
+  background-color: #e9e9e9; }
+
+.content {
+  width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 5px; }
+
+h1 {
+  color: red;
+  font-weight: lighter; }
+
+h2 {
+  font-weight: 600;
+  font-size: 1.6em; }
+
+header {
+  border-bottom: 1px solid lightgray; }
+
+footer {
+  color: gray;
+  text-align: center;
+  padding: 15px;
+  margin-top: 70px;
+  border-radius: 5px;
+  border-top: 1px solid rgba(160, 160, 160, 0.4);
+  box-shadow: inset 0px 50px 70px -55px rgba(128, 128, 128, 0.2); }
+
+th {
+  background-color: black;
+  color: white;
+  padding: 2px; }
+
+td {
+  text-align: center;
+  width: 40px; }
+
+.outcome-high {
+  background-color: lightcoral; }
+
+.outcome-low {
+  background-color: lightslategray; }
+
+.outcome-right {
+  background-color: darkseagreen; }
