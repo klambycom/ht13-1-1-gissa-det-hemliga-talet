@@ -3,15 +3,10 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary(true, "Fel inträffade. Korrigera det som är fel och försök igen.")
+    @Html.ValidationSummary(false, "Fel inträffade. Korrigera det som är fel och försök igen.")
     
     @Html.LabelFor(m => m.Guess)
-    @Html.TextBoxFor(m => m.Guess, new { autofocus = "", Value = Model.SecretNumber.LastGuessedNumber.Number })
-    @Html.ValidationMessageFor(m => m.Guess)
+    @Html.GuessTextBoxFor(m => m.Guess, Model.SecretNumber.LastGuessedNumber)
 
     <input type="submit" value="Skicka gissning" />
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

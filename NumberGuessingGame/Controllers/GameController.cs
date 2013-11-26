@@ -54,6 +54,12 @@ namespace NumberGuessingGame.Controllers
             if (ModelState.IsValid)
             {
                 Game.SecretNumber.MakeGuess(guessedNumber.Guess);
+
+                if (Session.IsNewSession)
+                {
+                    return View("OldSession");
+                }
+
                 return RedirectToAction("Index");
             }
 
