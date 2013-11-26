@@ -223,6 +223,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Game\_GuessForm.cshtml" />
+    <Content Include="Views\Game\CorrectGuess.cshtml" />
+    <Content Include="Views\Game\GameLost.cshtml" />
+    <Content Include="Views\Game\_GuessHistory.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

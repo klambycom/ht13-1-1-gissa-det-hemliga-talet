@@ -13,13 +13,9 @@ namespace NumberGuessingGame.Helpers
             return swedish[number];
         }
 
-        public static MvcHtmlString GuessToText(this HtmlHelper helper, GuessedNumber guess)
+        public static string HighOrLow(this HtmlHelper helper, GuessedNumber guess, string high, string low)
         {
-            var outcome = new OrderedDictionary();
-            outcome.Add(Outcome.High, "&darr;");
-            outcome.Add(Outcome.Low, "&uarr;");
-
-            return MvcHtmlString.Create(String.Format("{0}, {1}", guess.Number, outcome[guess.Outcome]));
+            return guess.Outcome == Outcome.High ? high : low;
         }
     }
 }

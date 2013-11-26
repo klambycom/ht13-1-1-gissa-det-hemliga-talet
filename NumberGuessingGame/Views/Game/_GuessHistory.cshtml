@@ -1,0 +1,27 @@
+﻿@model NumberGuessingGame.ViewModels.Game
+
+<table>
+    <tr>
+    @foreach (var nr in Enumerable.Range(1, Model.SecretNumber.Count))
+    {
+        <th>@nr</th>
+    }
+    </tr>
+    <tr>
+    @foreach (var guess in Model.SecretNumber.GuessedNumbers)
+    {
+        if (guess.Outcome == Outcome.High)
+        {
+            <td class="outcome-high">@guess.Number<br />&darr;</td>
+        }
+        else if (guess.Outcome == Outcome.Low)
+        {
+            <td class="outcome-low">&uarr;<br />@guess.Number</td>
+        }
+        else
+        {
+            <td class="outcome-right">@guess.Number</td>
+        }
+    }
+    </tr>
+</table>

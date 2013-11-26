@@ -10,28 +10,42 @@ namespace NumberGuessingGame.Controllers
 {
     public class GameController : Controller
     {
-        private Game game = new Game();
+        private String sessionName = "SecrectNumberSession";
 
-        private SecretNumber GetSecretNumber()
-        {
-            var sessionName = "SecrectNumberSession";
-
-            if (Session[sessionName] == null)
+        public Game Game {
+            get
             {
-                Session[sessionName] = new SecretNumber();
-            }
+                var game = new Game();
 
-            return (SecretNumber)Session[sessionName];
+                if (Session[sessionName] == null)
+                {
+                    Session[sessionName] = new SecretNumber();
+                }
+                game.SecretNumber = (SecretNumber)Session[sessionName];
+
+                return game;
+            }
         }
 
-        //
+        // Show game outcome
         // GET: /Game/
 
         public ActionResult Index()
         {
-            game.SecretNumber = GetSecretNumber();
-            return View(game);
+            if (Game.SecretNumber.CanMakeGuess)
+            {
+                return View(Game);
+            }
+            else if (Game.SecretNumber.LastGuessedNumber.Outcome == Outcome.Right)
+            {
+                return View("CorrectGuess", Game);
+            }
+
+            return View("GameLost", Game);
         }
+
+        // Save guess and redirect to front page
+        // POST: /Game/
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -39,12 +53,20 @@ namespace NumberGuessingGame.Controllers
         {
             if (ModelState.IsValid)
             {
-                game.SecretNumber = GetSecretNumber();
-                game.SecretNumber.MakeGuess(guessedNumber.Guess);
-                Session["SecretNumber"] = game.SecretNumber;
+                Game.SecretNumber.MakeGuess(guessedNumber.Guess);
+                return RedirectToAction("Index");
             }
 
-            return View(game);
+            return View(Game);
+        }
+
+        // Destroy session and redirect to front page
+        // GET: /Game/New/
+
+        public ActionResult New()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
         }
     }
 }

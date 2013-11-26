@@ -8,7 +8,19 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @RenderBody()
+    <div class="content">
+        <header>
+            <h1>Gissa det hemliga talet</h1>
+        </header>
+
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer>
+            Skapad av Christian Nilsson
+        </footer>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)

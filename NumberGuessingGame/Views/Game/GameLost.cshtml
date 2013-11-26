@@ -1,0 +1,19 @@
+﻿@model NumberGuessingGame.ViewModels.Game
+@{var lastGuess = Model.SecretNumber.LastGuessedNumber;}
+
+@{
+    ViewBag.Title = "Inga fler gissningar!";
+}
+
+<h2>Inga fler gissningar!</h2>
+
+@Html.Partial("_GuessForm")
+
+<p>
+    @lastGuess.Number är för @Html.HighOrLow(lastGuess, "högt", "lågt").
+    Inga fler gissningar! Det hemliga talet var @Model.SecretNumber.Number.
+</p>
+
+@Html.Partial("_GuessHistory")
+
+<p>@Html.ActionLink("Slumpa nytt hemligt tal", "New")</p>

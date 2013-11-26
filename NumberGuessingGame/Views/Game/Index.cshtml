@@ -1,43 +1,27 @@
 ﻿@model NumberGuessingGame.ViewModels.Game
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Gissa det hemliga talet";
 }
 
-@if (Model.SecretNumber.Count > 0)
-{
-    <h2>@Html.NumberToSwedish(Model.SecretNumber.Count) gissningen</h2>
-}
-else
-{
-    <h2>Gissa på det hemliga talet</h2>
-}
+<h2>@Html.NumberToSwedish(Model.SecretNumber.Count + 1) gissningen</h2>
 
 @Html.Partial("_GuessForm")
 
 @if (Model.SecretNumber.Count > 0)
 {
+    var last = Model.SecretNumber.LastGuessedNumber;
+    
     <p>
-        @switch (Model.SecretNumber.LastGuessedNumber.Outcome)
+        @if (last.Outcome == Outcome.High || last.Outcome == Outcome.Low)
         {
-            case Outcome.Low:
-                @:@Model.SecretNumber.LastGuessedNumber.Number är för lågt.
-                break;
-            case Outcome.High:
-                @:@Model.SecretNumber.LastGuessedNumber.Number är för högt.
-                break;
-            case Outcome.OldGuess:
-                @:Du har redan gissat på @Model.SecretNumber.LastGuessedNumber.Number!
-                break;
-            default:
-                break;
+            @:@last.Number är för @Html.HighOrLow(last, "högt", "lågt")
+        }
+        else
+        {
+            @:Du har redan gissat på @last.Number!
         }
     </p>
 }
 
-<ul>
-@foreach (var guess in Model.SecretNumber.GuessedNumbers)
-{
-    <li>@Html.GuessToText(guess)</li>
-}
-</ul>
+@Html.Partial("_GuessHistory")

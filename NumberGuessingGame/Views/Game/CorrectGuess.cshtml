@@ -1,0 +1,13 @@
+﻿@model NumberGuessingGame.ViewModels.Game
+
+@{
+    ViewBag.Title = "Rätt gissat!";
+}
+
+<h2>Rätt gissat!</h2>
+
+<p>Grattis, du klarade det på <strong>@Html.NumberToSwedish(Model.SecretNumber.Count)</strong> försöket.</p>
+
+@Html.Partial("_GuessHistory")
+
+<p>@Html.ActionLink("Slumpa nytt hemligt tal", "New")</p>
